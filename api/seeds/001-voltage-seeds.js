@@ -5,10 +5,11 @@
 exports.seed = async function(knex) {
   // Deletes ALL existing entries
   await knex('voltages').truncate()
-  await knex('voltages').insert([
+  await knex('voltages').insert([//add entry
     {
-      message: "fdfdf",
-      volt: 1, 
+      //testt values
+      message: "fdfdf",//,essage
+      volt: 1, //voltage number
   },
   {
       message: "rawr",

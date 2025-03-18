@@ -1,23 +1,23 @@
-// Update with your config settings.
 
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
-module.exports = {
+module.exports = { //exports object
 
+  //key for development enviornment config
   development: {
-    client: 'sqlite3',
-    connection: {
-      filename: './api/voltages.db3'
+    client: 'sqlite3', //using sqlie database client for knex
+    connection: {//defines connectiton settins for database
+      filename: './api/voltages.db3'//path and filename for sqlite databsefile
     },
 
-    migrations:{
-      directory: './api/migrations'
+    migrations:{//migrations settings 0 modify database schema over time
+      directory: './api/migrations' //directory where migratoin files are stored
     },
-    seeds: {
-      directory: "./api/seeds"
+    seeds: {//seedsss - used to populate database w test data
+      directory: "./api/seeds" //directory
     },
-    useNullAsDefault: true, 
+    useNullAsDefault: true, //use null as default value for columns when no value provided
 
   },
 
