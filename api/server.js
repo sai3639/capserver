@@ -3,7 +3,8 @@ const cors = require('cors'); //allows backend to be accesse dby other domains
 const helmet = require('helmet'); //scure application by setting http headers
 const path = require('path'); //provides utilities to work with file and directory paths
 
-
+//res - used to send data from server to client in response to HTTp request
+//req - enacpsulates info about incoming HTTP request from client  (POST)
 
 
 // Create a single Express server instance
@@ -92,7 +93,13 @@ const runPythonScript = (scriptPath, args = []) => {
 
             //spawn - used to create/run new 'child' process - ie python script
             //streams data as it is produced
-            const process = spawn('python', [absolutePath, ...args]); //construct absolute file path to script
+            const process = spawn('python', [absolutePath, ...args],
+                {
+                    stdio: 'pipe', // Allow capturing output
+                    detached: args[0] === 'start', // Detach process if it's 'start'
+                    shell: true
+                }
+            ); //construct absolute file path to script
             //spawns python process to run python script
             let stdoutData = '';
             let stderrData = '';
@@ -118,6 +125,7 @@ const runPythonScript = (scriptPath, args = []) => {
             //script starts recording - does not wait for finish to give output
             if (args[0] === 'start') {
                 recordingProcess = process;
+                console.log(`Stored recording process with PID: ${process.pid}`); //debug
                 // For start command, resolve immediately since the process needs to keep running
                 resolve({ success: true, output: "Recording started"});
             } else {
@@ -166,7 +174,7 @@ server.get("/start-recording", async (req, res) => {
 
         //start python script
         //_dirname - directory where node.js script running
-        const scriptPath = path.join(__dirname, "testbao2.py");
+        const scriptPath = path.join(__dirname, "try10.py");
         //wait for scirpt to start before contiuing
         const result = await runPythonScript(scriptPath, ['start']); // send start to python
 
@@ -215,11 +223,11 @@ server.get("/stop-recording", async (req, res) => {
         
         // Send SIGTERM to the process
         recordingProcess.kill('SIGTERM');
-        
+       // process.kill(-recordingProcess.pid, 'SIGTERM');
         // Wait for the process to handle the signal
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        const scriptPath = path.join(__dirname, "testbao2.py");
+        const scriptPath = path.join(__dirname, "try10.py");
         const result = await runPythonScript(scriptPath, ['stop']); //run stop command to pyton script
         
         // Clear the recording process reference
