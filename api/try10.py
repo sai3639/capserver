@@ -19,7 +19,7 @@ audio_data = []
 recording = False
 stream = None
 sample_rate = 44100
-EXPECTED_WORDS = ["volts", "3 volts", "4 volts", "8 volts", "5 volts", "6 volts"]
+EXPECTED_WORDS = ["volts", "3 volts", "4 volts", "8 volts", "5 volts", "6 volts", "V12"]
 AUDIO_FILE = "audio_data.npy"  # File to store recorded audio
 recorded_audio = "recorded_audio4.wav"
 
