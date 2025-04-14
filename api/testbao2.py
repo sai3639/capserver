@@ -299,7 +299,7 @@ def process_audio():
         
         # Calculate FFT
             #fft to visualize freq content
-#fat fourier transform 
+#fast fourier transform 
         fft_data = fft(filtered_audio)
         fft_magnitude = np.abs(fft_data) #extracts magnitude specturm 
         freq_axis = np.linspace(0, sample_rate/2, len(fft_data)//2) #generates frequency axis
