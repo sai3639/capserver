@@ -4,10 +4,14 @@ const knex = require('knex'); //imports knex librar
 
 
 
-const config = require('../knexfile'); //imports database configuration from knexfile.js file
+const knexfile = require('../knexfile'); //imports database configuration from knexfile.js file
 //
+
+const enviornment = process.env.NODE_ENV || 'production';
+const config = knexfile[enviornment];
+
 //creates knex instance 
-const db = knex(config.development);
+const db = knex(config);
 
 module.exports = db; 
 

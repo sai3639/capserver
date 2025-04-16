@@ -21,5 +21,24 @@ module.exports = { //exports object
 
   },
 
+
+  production:{
+    client: 'mysql2',
+    connection: {
+      host: '127.0.0.1',
+      user: 'root',
+      password: 'y6dFFw2e.Rh6EsE',
+      database: 'groundcontrol'
+    },
+
+    migrations: {
+      directory: './api/migrations'
+    },
+
+    seeds:{
+      directory: './api/seeds'
+    }
+  }
+
   
 };

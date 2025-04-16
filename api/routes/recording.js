@@ -72,7 +72,7 @@ const runPythonScript = (scriptPath, args = []) => {
                 //for other commands it waits to for process to finish and then gives output
                 process.once('close', (code) => {
                     if (code === 0 || code === null) {
-                        resolve({ success: true, output: stdoutData });
+                        resolve({ success: true, output: stdout });
                     } else {
                         reject(new Error(`Process exited with code ${code}\n${stderrData}`));
                     }
