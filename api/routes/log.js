@@ -11,6 +11,25 @@ const db = require('./../dbConfig');
 
 router.use(cookieParser());//use it bro
 
+// Get current date and time
+const getCurrentDateTime = () => {
+    return new Date().toISOString().slice(0, 19).replace('T', ' '); 
+};
+
+const getCurrentDateTimeLocal = () => {
+    const now = new Date();
+    const pad = (n) => n.toString().padStart(2, '0');
+
+    const year = now.getFullYear();
+    const month = pad(now.getMonth() + 1); // Months are zero-based
+    const day = pad(now.getDate());
+    const hours = pad(now.getHours());
+    const minutes = pad(now.getMinutes());
+    const seconds = pad(now.getSeconds());
+
+    return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+};
+
 
 //log posts
 //authenticate callsign
@@ -146,7 +165,7 @@ router.post('/add-log', async (req, res) => {
     
     const callsign = sessionId.split('-')[0]; //extracts callsign from session id which is strucutred callsign-timestamp
     const { telemetry_data } = req.body; //gets telemetry data from reques bodyy
-    const currentDateTime = getCurrentDateTime(); //gets current timestamp
+    const currentDateTime = getCurrentDateTimeLocal(); //gets current timestamp
 
 
     if(!callsign || callsign === "Guest"){//checks if callsign is missing or guest

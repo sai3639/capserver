@@ -41,7 +41,7 @@ server.use(express.urlencoded({ limit: '50mb', extended: true })); //handles url
 const cookieParser = require('cookie-parser');//for cookiees
 
 
-server.use(cookieParser());//use it bro
+server.use(cookieParser()); //use the cookieParser
 
 
 ///testt

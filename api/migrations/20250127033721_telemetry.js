@@ -7,6 +7,7 @@ exports.up = async knex =>  {
     await knex.schema.createTable('telemetry', tbl => {
         tbl.increments();//iid
         tbl.text('message', 256).notNullable();//message
+        tbl.binary('binary_data');
         tbl.text('plot_path').nullable();//plot
         tbl.timestamp('created_at').defaultTo(knex.fn.now());//timestamp
     });

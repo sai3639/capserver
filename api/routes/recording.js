@@ -3,6 +3,7 @@ const router = express.Router();
 const path = require('path');
 const { spawn } = require('child_process');
 const db = require('./../dbConfig');
+const { time } = require('console');
 
 
 
@@ -74,7 +75,7 @@ const runPythonScript = (scriptPath, args = []) => {
                     if (code === 0 || code === null) {
                         resolve({ success: true, output: stdout });
                     } else {
-                        reject(new Error(`Process exited with code ${code}\n${stderrData}`));
+                        reject(new Error(`Process exited with code ${code}\n${stderr}`));
                     }
                 });
             }
@@ -112,7 +113,7 @@ router.get("/start-recording", async (req, res) => {
 
         //start python script
         //_dirname - directory where node.js script running
-        const scriptPath = path.join(__dirname, "try11.py");
+        const scriptPath = path.join(__dirname, "try14.py");
         //wait for scirpt to start before contiuing
         const result = await runPythonScript(scriptPath, ['start']); // send start to python
 
@@ -146,15 +147,27 @@ router.get("/start-recording", async (req, res) => {
 });
 
 //stop recording process by sending SIGTERM signal to rynning python script
-router.get("/stop-recording", async (req, res) => {
+router.post("/stop-recording", async (req, res) => {
     try {
-        //checks if recording is running else error
+        const { timestamp } = req.body;
+        console.log("Frontend timestamp:", timestamp); 
+
         if (!recordingProcess) {
             return res.status(400).json({ 
                 success: false, 
                 error: "No recording active" 
             });
         }
+
+    
+    // try {
+    //     //checks if recording is running else error
+    //     if (!recordingProcess) {
+    //         return res.status(400).json({ 
+    //             success: false, 
+    //             error: "No recording active" 
+    //         });
+    //     }
 
         
         // Send SIGTERM to the process
@@ -163,7 +176,7 @@ router.get("/stop-recording", async (req, res) => {
         // Wait for the process to handle the signal
         await new Promise(resolve => setTimeout(resolve, 1000));
         
-        const scriptPath = path.join(__dirname, "try11.py");
+        const scriptPath = path.join(__dirname, "try14.py");
         const result = await runPythonScript(scriptPath, ['stop']); //run stop command to pyton script
         
         // Clear the recording process reference
@@ -172,7 +185,8 @@ router.get("/stop-recording", async (req, res) => {
         res.json({ 
             success: true, 
             message: "Recording stopped and processed",
-            output: result.output
+            output: result.output,
+            timestamp: timestamp
         });
     } catch (error) {
         console.error("Error stopping", error);
