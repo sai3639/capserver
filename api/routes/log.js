@@ -157,7 +157,7 @@ router.post('/logout', (req, res) => {
 
 //post endpoint - add log
 router.post('/add-log', async (req, res) => {
-
+    console.log("POST HTI")
     const sessionId = req.cookies.session; //extracts session cookie from request
     if (!sessionId) { //if no sessioni found - error
         return res.status(403).json({ message: "No active session." });
