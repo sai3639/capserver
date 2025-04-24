@@ -2,10 +2,11 @@ const express = require('express'); //web framework used to create server and ha
 const cors = require('cors'); //allows backend to be accesse dby other domains
 const helmet = require('helmet'); //scure application by setting http headers
 const path = require('path'); //provides utilities to work with file and directory paths
-
+require('dotenv').config()
 //res - used to send data from server to client in response to HTTp request
 //req - enacpsulates info about incoming HTTP request from client  (POST)
 
+const dbUrl = process.env.DATABASE_URL
 
 // Create a single Express server instance
 const server = express();

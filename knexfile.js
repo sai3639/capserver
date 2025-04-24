@@ -1,4 +1,7 @@
 
+require('dotenv').config();  
+
+
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
@@ -24,12 +27,7 @@ module.exports = { //exports object
 
   production:{
     client: 'mysql2',
-    connection: {
-      host: '127.0.0.1',
-      user: 'root',
-      password: 'y6dFFw2e.Rh6EsE',
-      database: 'groundcontrol'
-    },
+    connection: process.env.DATABASE_URL,
 
     migrations: {
       directory: './api/migrations'
