@@ -37,7 +37,7 @@ router.post('/authenticate-callsign', async (req, res) => {
     //res.header - adds HTTP headers to response
     ///acces-control-allow-origin - specifies that requests can come from
     //htpp://... - allows cross origin request from this domain
-    res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.header('Access-Control-Allow-Origin', 'https://capstoneapp-q46y.onrender.com');
     res.header('Access-Control-Allow-Credentials', 'true'); //allows cookies to be sent with requests from the client
     const { callsign } = req.body;//destructures callsin from request body
 
