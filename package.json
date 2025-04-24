@@ -6,7 +6,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
     "migrate:dev": "knex migrate:latest --env development",
-    "migrate:prod": "knex migrate:latest --env production"
+    "migrate:prod": "knex migrate:latest --env production",
+    "postinstall": "pip install -r requirements.txt"
   },
   "author": "",
   "license": "ISC",
