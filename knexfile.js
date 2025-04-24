@@ -27,8 +27,13 @@ module.exports = { //exports object
 
   production:{
     client: 'mysql2',
-    connection: process.env.DATABASE_URL,
-
+    connection: {
+      host: 'aws.connect.psdb.cloud',
+      user: 'tp3pmkuhaol9dvwlcupf',
+      password: 'pscale_pw_oTuAxwFOH8XtECNGyhICIRPMdUa9FiyHqh4LNbPKpjR',
+      database: 'groundcontrol',
+      ssl: { rejectUnauthorized: true }
+    },
     migrations: {
       directory: './api/migrations'
     },
