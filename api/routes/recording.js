@@ -147,27 +147,27 @@ router.get("/start-recording", async (req, res) => {
 });
 
 //stop recording process by sending SIGTERM signal to rynning python script
-router.post("/stop-recording", async (req, res) => {
-    try {
-        const { timestamp } = req.body;
-        console.log("Frontend timestamp:", timestamp); 
-
-        if (!recordingProcess) {
-            return res.status(400).json({ 
-                success: false, 
-                error: "No recording active" 
-            });
-        }
-
-    
+router.get("/stop-recording", async (req, res) => {
     // try {
-    //     //checks if recording is running else error
+    //     const { timestamp } = req.body;
+    //     console.log("Frontend timestamp:", timestamp); 
+
     //     if (!recordingProcess) {
     //         return res.status(400).json({ 
     //             success: false, 
     //             error: "No recording active" 
     //         });
     //     }
+
+    
+    try {
+        //checks if recording is running else error
+        if (!recordingProcess) {
+            return res.status(400).json({ 
+                success: false, 
+                error: "No recording active" 
+            });
+        }
 
         
         // Send SIGTERM to the process
@@ -185,8 +185,7 @@ router.post("/stop-recording", async (req, res) => {
         res.json({ 
             success: true, 
             message: "Recording stopped and processed",
-            output: result.output,
-            timestamp: timestamp
+            output: result.output
         });
     } catch (error) {
         console.error("Error stopping", error);
