@@ -82,7 +82,7 @@ server.use('/api', recordingRoutes);
 server.use('/api', telemetryRoutes);
 server.use('/api', voltageRoutes);
 server.use('/api', powerRoutes);
-server.use('/api', logRoutes);
+server.use('/api/log', logRoutes);
 
 
 
