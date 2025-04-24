@@ -19,7 +19,7 @@ server.use('/static', express.static(path.join(__dirname, '..','static')));
 
 
 const corsOptions = { //cors configuration
-    origin: 'http://localhost:3000', //host
+    origin: 'https://capstoneapp-q46y.onrender.com', //host
     methods: 'GET, POST, PUT, DELETE, OPTIONS',
     allowedHeaders: 'Content-Type, Authorization',
     credentials: true, //cookies
